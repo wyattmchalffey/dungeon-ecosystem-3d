@@ -1,0 +1,215 @@
+{
+  "name": "dungeon-ecosystem-3d",
+  "version": "0.1.0",
+  "description": "A scientifically-accurate, real-time 3D simulation of dungeon ecosystems with complete predator-prey dynamics, environmental modeling, and procedural generation.",
+  "main": "src/main.js",
+  "type": "module",
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=7.0.0"
+  },
+  
+  "scripts": {
+    "dev": "webpack serve --mode=development --config webpack.config.js",
+    "build": "webpack --mode=production --config webpack.config.js",
+    "build:dev": "webpack --mode=development --config webpack.config.js",
+    "build:analyze": "webpack-bundle-analyzer dist/bundle.js",
+    
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:performance": "jest --testPathPattern=performance",
+    "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand --no-cache",
+    
+    "lint": "eslint src/**/*.js tests/**/*.js",
+    "lint:fix": "eslint src/**/*.js tests/**/*.js --fix",
+    "format": "prettier --write \"src/**/*.js\" \"tests/**/*.js\" \"tools/**/*.js\"",
+    
+    "clean": "rimraf dist/ coverage/ .cache/",
+    "precommit": "npm run lint && npm run test",
+    "prepare": "husky install",
+    "diagnose": "node tools/diagnostics.js"
+  },
+  
+  "keywords": [
+    "ecosystem",
+    "simulation",
+    "3d",
+    "webgl",
+    "ecology",
+    "procedural-generation",
+    "population-dynamics",
+    "predator-prey",
+    "environmental-modeling",
+    "dungeon",
+    "javascript",
+    "webgl2"
+  ],
+  
+  "author": {
+    "name": "Dungeon Ecosystem Team",
+    "email": "team@dungeonecosystem.dev",
+    "url": "https://github.com/dungeon-ecosystem/dungeon-ecosystem-3d"
+  },
+  
+  "license": "MIT",
+  
+  "homepage": "https://dungeonecosystem.dev",
+  
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dungeon-ecosystem/dungeon-ecosystem-3d.git"
+  },
+  
+  "bugs": {
+    "url": "https://github.com/dungeon-ecosystem/dungeon-ecosystem-3d/issues"
+  },
+  
+  "devDependencies": {
+    "@babel/core": "^7.22.0",
+    "@babel/preset-env": "^7.22.0",
+    "@babel/plugin-proposal-class-properties": "^7.18.0",
+    "babel-loader": "^9.1.0",
+    
+    "webpack": "^5.88.0",
+    "webpack-cli": "^5.1.0",
+    "webpack-dev-server": "^4.15.0",
+    "webpack-bundle-analyzer": "^4.9.0",
+    "html-webpack-plugin": "^5.5.0",
+    "copy-webpack-plugin": "^11.0.0",
+    
+    "eslint": "^8.43.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^6.1.1",
+    
+    "prettier": "^2.8.8",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.2",
+    
+    "jest": "^29.5.0",
+    "jest-environment-jsdom": "^29.5.0",
+    "@jest/globals": "^29.5.0",
+    
+    "rimraf": "^5.0.1",
+    "cross-env": "^7.0.3",
+    
+    "raw-loader": "^4.0.2",
+    "url-loader": "^4.1.1",
+    "file-loader": "^6.2.0",
+    
+    "stats.js": "^0.17.0"
+  },
+  
+  "dependencies": {
+    "gl-matrix": "^3.4.3"
+  },
+  
+  "peerDependencies": {
+    "three": ">=0.150.0"
+  },
+  
+  "jest": {
+    "testEnvironment": "jsdom",
+    "setupFilesAfterEnv": ["<rootDir>/tests/setup.js"],
+    "testMatch": [
+      "<rootDir>/tests/**/*.test.js",
+      "<rootDir>/src/**/*.test.js"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.js",
+      "!src/**/*.test.js",
+      "!src/workers/*.js"
+    ],
+    "coverageReporters": [
+      "text-summary",
+      "lcov",
+      "html"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 80,
+        "functions": 80,
+        "lines": 80,
+        "statements": 80
+      }
+    },
+    "moduleNameMapping": {
+      "\\.(glsl|vert|frag|comp)$": "<rootDir>/tests/__mocks__/shaderMock.js"
+    }
+  },
+  
+  "eslintConfig": {
+    "extends": ["standard"],
+    "env": {
+      "browser": true,
+      "es2022": true,
+      "jest": true,
+      "worker": true
+    },
+    "parserOptions": {
+      "ecmaVersion": 2022,
+      "sourceType": "module"
+    },
+    "rules": {
+      "no-console": "warn",
+      "no-debugger": "error",
+      "prefer-const": "error",
+      "no-var": "error",
+      "object-shorthand": "error",
+      "prefer-arrow-callback": "error",
+      "arrow-spacing": "error",
+      "no-trailing-spaces": "error",
+      "semi": ["error", "always"],
+      "quotes": ["error", "single"],
+      "indent": ["error", 2],
+      "max-len": ["warn", { "code": 120 }]
+    },
+    "globals": {
+      "WebGL2RenderingContext": "readonly",
+      "performance": "readonly",
+      "requestAnimationFrame": "readonly",
+      "cancelAnimationFrame": "readonly"
+    }
+  },
+  
+  "prettier": {
+    "semi": true,
+    "singleQuote": true,
+    "tabWidth": 2,
+    "trailingComma": "es5",
+    "printWidth": 120,
+    "bracketSpacing": true,
+    "arrowParens": "avoid"
+  },
+  
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "npm run test"
+    }
+  },
+  
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "prettier --write",
+      "git add"
+    ]
+  },
+  
+  "browserslist": [
+    "Chrome >= 56",
+    "Firefox >= 51",
+    "Safari >= 15",
+    "Edge >= 79",
+    "not IE 11",
+    "not op_mini all"
+  ],
+  
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/dungeon-ecosystem"
+  }
+}

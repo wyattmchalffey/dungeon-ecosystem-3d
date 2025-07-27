@@ -2,7 +2,25 @@
 
 Thank you for your interest in contributing! This project aims to create the most scientifically accurate and visually stunning ecosystem simulation possible, and we need help from developers, artists, scientists, and enthusiasts.
 
-## 🎯 Ways to Contribute
+## 🎯 Current Development Focus (Phase 3)
+
+We're currently starting **Phase 3: Procedural Dungeon Generation**. This is an excellent time to contribute as we're building the foundation for the ecosystem simulation.
+
+### 🔥 High Priority Contributions Needed
+
+#### **Procedural Generation (Phase 3 - Starting Now)**
+- **Room Generation Algorithms**: Implement space partitioning and layout systems
+- **3D Geometry Creation**: Convert room data to optimized 3D meshes
+- **Environmental Placement**: Algorithms for water, heat sources, organic matter
+- **Performance Optimization**: Ensure 60fps with large generated dungeons
+
+#### **Asset Creation (Ready for Contributors)**
+- **Dungeon Textures**: Stone walls, floors, water surfaces, moss patterns
+- **3D Models**: Rock formations, stalactites, environmental features
+- **Shaders**: Water effects, atmospheric lighting, material systems
+- **Audio**: Cave ambience, water drips, spatial sound effects
+
+## 🚀 Ways to Contribute
 
 ### 🔬 For Scientists & Researchers
 - **Ecological Models**: Implement realistic population dynamics, predator-prey relationships
@@ -12,7 +30,8 @@ Thank you for your interest in contributing! This project aims to create the mos
 
 ### 💻 For Developers
 - **3D Graphics**: WebGL shaders, rendering optimization, visual effects
-- **Performance**: Memory management, spatial optimization, multi-threading
+- **Procedural Generation**: Dungeon algorithms, mesh optimization, spatial systems
+- **Performance**: Memory management, spatial optimization, Web Workers
 - **User Interface**: Debug panels, ecosystem visualization, interaction tools
 - **Architecture**: System design, API development, testing frameworks
 
@@ -28,436 +47,457 @@ Thank you for your interest in contributing! This project aims to create the mos
 - **Community**: Blog posts, social media, conference presentations
 - **Accessibility**: Making complex concepts understandable
 
+## 🏗️ Current Architecture Status
+
+### ✅ Complete & Ready for Extension
+```
+src/
+├── math/              # Vector3, Matrix4, Quaternion, MathUtils ✅
+├── rendering/         # WebGL2 pipeline, Camera, Scene graph ✅
+├── core/              # Engine, Input, Performance monitoring ✅
+└── utils/             # Environment detection ✅
+```
+
+### 🚀 Active Development (Phase 3)
+```
+src/
+├── generation/        # 🚀 Procedural dungeon generation
+│   ├── DungeonGenerator.js    # Main generation pipeline
+│   ├── RoomGenerator.js       # Individual room creation
+│   ├── ConnectionSystem.js    # Room interconnection
+│   └── EnvironmentalZones.js  # Water, heat, organic matter
+```
+
+### 📅 Planned for Future Phases
+```
+src/
+├── simulation/        # 📅 Ecosystem simulation (Phase 4)
+├── entities/          # 📅 Creatures and objects (Phase 4)
+└── behaviors/         # 📅 AI systems (Phase 4)
+```
+
 ## 🚀 Getting Started
 
-### 1. Choose Your Contribution Type
+### For Phase 3 Procedural Generation
 
-#### 🐛 Bug Fixes (Great for beginners)
-- Look for issues labeled `good first issue` or `bug`
-- Small, focused changes with clear success criteria
-- Usually involves fixing existing functionality
+1. **Set up development environment**:
+```bash
+git clone https://github.com/your-org/dungeon-ecosystem-3d
+cd dungeon-ecosystem-3d
+npm install
+npm run dev
+```
 
-#### ✨ New Features (Intermediate)
-- Pick from roadmap items or propose new features
-- Requires understanding of project architecture
-- Should align with overall project goals
+2. **Understand current capabilities**:
+   - Open `http://localhost:3000` to see the current 3D demo
+   - Review `src/rendering/GeometryBuilder.js` for mesh creation tools
+   - Check `src/rendering/Scene.js` for the component system
 
-#### 🔧 Performance Improvements (Advanced)
-- Profile code and identify bottlenecks
-- Optimize algorithms or rendering pipeline
-- Requires deep system knowledge
+3. **Choose your contribution area**:
+   - **Room Generation**: Work on `src/generation/DungeonGenerator.js`
+   - **Mesh Creation**: Extend `src/rendering/GeometryBuilder.js`
+   - **Environmental Features**: Create water, temperature, lighting systems
+   - **Performance**: Optimize for large dungeons with many rooms
 
-#### 📚 Documentation (All levels)
-- Improve existing docs or create new content
-- No coding required for many documentation tasks
-- Helps entire community understand the project
+4. **Start with Phase 3 tasks**:
+   - Check GitHub issues labeled `phase-3` and `procedural-generation`
+   - Review the [Phase 3 specification](docs/ROADMAP.md#phase-3) 
+   - Join discussions in GitHub Discussions for coordination
 
-### 2. Set Up Development Environment
-Follow the [Setup Guide](SETUP.md) to get your development environment ready.
+### For Asset Creation
 
-### 3. Understand the Architecture
-Read the [Architecture Guide](docs/ARCHITECTURE.md) to understand how systems interact.
+1. **Review asset specifications**:
+   - Check `src/core/AssetLoader.js` for supported formats
+   - Review `assets/` directory structure
+   - See `dungeonAssets` manifest for needed assets
+
+2. **Asset requirements**:
+   - **Textures**: PNG format, power-of-2 dimensions (512x512, 1024x1024)
+   - **Models**: OBJ or GLTF, <2000 triangles for performance
+   - **Shaders**: GLSL (vertex/fragment), WebGL2 preferred with WebGL1 fallback
+   - **Audio**: OGG Vorbis primary, MP3 fallback, <30 seconds
+
+3. **Integration pipeline**:
+   - Assets are loaded via `AssetLoader.js`
+   - Textures integrate with WebGL material system
+   - Models are parsed and converted to BufferGeometry
+   - Shaders compile automatically with error handling
 
 ## 📋 Contribution Process
 
 ### Step 1: Plan Your Contribution
 ```bash
-# 1. Check existing issues
-# Browse GitHub issues to see if someone's already working on it
+# 1. Check existing issues and Phase 3 status
+# Browse GitHub issues, especially "phase-3" and "good-first-issue" labels
 
-# 2. Create/comment on issue
-# If no issue exists, create one describing your planned contribution
+# 2. Create or comment on issue
+# Describe your planned contribution and get feedback
 
-# 3. Get feedback
-# Wait for maintainer feedback before starting work
-# This prevents duplicate effort and ensures alignment
+# 3. Coordinate with team
+# Join GitHub Discussions to avoid duplicate work
 ```
 
-### Step 2: Implement Your Changes
+### Step 2: Development Setup
 ```bash
-# 1. Fork the repository
-# Click "Fork" on GitHub to create your copy
-
-# 2. Clone your fork
+# 1. Fork and clone
 git clone https://github.com/YOUR_USERNAME/dungeon-ecosystem-3d.git
 cd dungeon-ecosystem-3d
 
-# 3. Create feature branch
-git checkout -b feature/descriptive-name
+# 2. Create feature branch
+git checkout -b feature/phase3-room-generation
 
-# 4. Make your changes
-# Follow coding standards and write tests
+# 3. Set up development environment
+npm install
+npm run dev
 
-# 5. Test thoroughly
-npm test
-npm run test:performance
-npm run lint
+# 4. Verify setup
+# Open http://localhost:3000 and see 5 animated cubes
+# Run npm test to ensure all 12 math tests pass
 ```
 
-### Step 3: Submit Your Contribution
-```bash
-# 1. Commit with good messages
-git add .
-git commit -m "feat: add flocking behavior for creatures
+### Step 3: Implementation Guidelines
 
-- Implement boids algorithm for group movement
-- Add configurable separation, alignment, cohesion
-- Update creature AI to use flocking when in groups
-- Add tests for flocking calculations
-
-Fixes #123"
-
-# 2. Push to your fork
-git push origin feature/descriptive-name
-
-# 3. Create Pull Request
-# Go to GitHub and click "Create Pull Request"
-# Fill out the PR template completely
-```
-
-## 📝 Code Standards
-
-### JavaScript Style Guide
+#### **For Procedural Generation**
 ```javascript
-// ✅ Good: Clear, descriptive names
-class CreatureBehaviorManager {
-  calculateFlockingForce(creature, neighbors, config) {
-    const separationForce = this.calculateSeparation(creature, neighbors);
-    const alignmentForce = this.calculateAlignment(creature, neighbors);
-    const cohesionForce = this.calculateCohesion(creature, neighbors);
+// ✅ Good: Modular, testable generation
+class RoomGenerator {
+  generateRoom(config) {
+    const layout = this.createLayout(config);
+    const geometry = this.createGeometry(layout);
+    const features = this.addEnvironmentalFeatures(layout, config);
     
-    return separationForce
-      .multiply(config.separationWeight)
-      .add(alignmentForce.multiply(config.alignmentWeight))
-      .add(cohesionForce.multiply(config.cohesionWeight));
-  }
-}
-
-// ❌ Bad: Unclear, abbreviated names
-class CBM {
-  calcFF(c, n, cfg) {
-    const sF = this.calcS(c, n);
-    const aF = this.calcA(c, n);
-    const cF = this.calcC(c, n);
-    return sF.mul(cfg.sW).add(aF.mul(cfg.aW)).add(cF.mul(cfg.cW));
-  }
-}
-```
-
-### Coding Conventions
-- **Variables**: `camelCase` (`creatureCount`, `environmentalFactor`)
-- **Classes**: `PascalCase` (`Vector3`, `EcosystemManager`)
-- **Constants**: `UPPER_SNAKE_CASE` (`MAX_POPULATION`, `GRAVITY_CONSTANT`)
-- **Files**: `PascalCase.js` for classes, `camelCase.js` for utilities
-- **Private methods**: Prefix with underscore (`_calculateInternalState`)
-
-### Performance Guidelines
-```javascript
-// ✅ Good: Reuse objects to avoid garbage collection
-class ParticleSystem {
-  constructor() {
-    this.tempVector = new Vector3(); // Reusable temp object
+    return {
+      geometry: geometry,
+      features: features,
+      metadata: this.calculateMetadata(layout)
+    };
   }
   
-  updateParticle(particle, deltaTime) {
-    // Reuse temp vector instead of creating new ones
-    this.tempVector.copy(particle.velocity);
-    this.tempVector.multiplyInPlace(deltaTime);
-    particle.position.addInPlace(this.tempVector);
+  // Make functions pure and testable
+  createLayout(config) {
+    // Deterministic based on config
+    return { width: config.width, height: config.height, doors: [...] };
   }
 }
 
-// ❌ Bad: Creates new objects every frame
-class ParticleSystem {
-  updateParticle(particle, deltaTime) {
-    // Creates garbage every frame
-    const deltaPosition = particle.velocity.multiply(deltaTime);
-    particle.position = particle.position.add(deltaPosition);
+// ❌ Bad: Monolithic, hard to test
+class BadRoomGenerator {
+  doEverything() {
+    // Huge function that does layout, geometry, features all together
+    // Uses global state, random numbers without seeds
+    // Hard to test individual components
   }
 }
 ```
 
-### Documentation Standards
+#### **For Performance-Critical Code**
 ```javascript
-/**
- * Calculates predation pressure on prey population
- * 
- * Uses Lotka-Volterra equations modified with environmental carrying capacity
- * and realistic hunting success rates based on predator/prey density ratios.
- * 
- * @param {number} predatorCount - Number of predators in area
- * @param {number} preyCount - Number of prey in area  
- * @param {number} huntingEfficiency - Success rate per predator (0-1)
- * @param {number} carryingCapacity - Maximum sustainable prey population
- * @returns {number} Predation rate (prey consumed per time unit)
- * 
- * @example
- * // 10 spiders hunting 100 beetles with 15% efficiency
- * const predation = calculatePredationPressure(10, 100, 0.15, 150);
- * console.log(`${predation} beetles consumed per hour`);
- */
-function calculatePredationPressure(predatorCount, preyCount, huntingEfficiency, carryingCapacity) {
-  // Implementation here...
+// ✅ Good: Reuse objects, efficient algorithms
+class DungeonOptimizer {
+  constructor() {
+    this.tempVector = new Vector3(); // Reusable
+    this.tempMatrix = new Matrix4();
+  }
+  
+  optimizeGeometry(rooms) {
+    // Use spatial indexing for O(log n) queries
+    const spatialIndex = new Octree(bounds);
+    
+    for (const room of rooms) {
+      // Reuse temp objects
+      this.tempVector.copy(room.position);
+      // Process efficiently...
+    }
+  }
+}
+
+// ❌ Bad: Creates garbage, inefficient
+class BadOptimizer {
+  optimizeGeometry(rooms) {
+    for (const room of rooms) {
+      const temp = new Vector3(room.x, room.y, room.z); // Garbage!
+      // O(n²) nested loops
+      for (const otherRoom of rooms) {
+        // Inefficient comparisons...
+      }
+    }
+  }
 }
 ```
 
-## 🧪 Testing Requirements
+### Step 4: Testing Requirements
 
-### Test Coverage Requirements
-- **New features**: Must have ≥90% test coverage
-- **Bug fixes**: Must include regression test
-- **Performance improvements**: Must include benchmark test
-- **Refactoring**: All existing tests must pass
-
-### Types of Tests Required
-
-#### Unit Tests
+#### **Unit Tests for Generation**
 ```javascript
-// Example unit test
-describe('Vector3', () => {
-  test('cross product of perpendicular vectors', () => {
-    const v1 = new Vector3(1, 0, 0);
-    const v2 = new Vector3(0, 1, 0);
-    const result = v1.cross(v2);
+// Example test for room generation
+describe('DungeonGenerator', () => {
+  test('generates consistent rooms from same seed', () => {
+    const generator = new DungeonGenerator();
+    const config = { seed: 12345, roomCount: 10 };
     
-    expect(result.equals(new Vector3(0, 0, 1))).toBe(true);
+    const dungeon1 = generator.generate(config);
+    const dungeon2 = generator.generate(config);
+    
+    expect(dungeon1.rooms.length).toBe(dungeon2.rooms.length);
+    expect(dungeon1.rooms[0].position).toEqual(dungeon2.rooms[0].position);
+  });
+  
+  test('creates valid room connections', () => {
+    const generator = new DungeonGenerator();
+    const dungeon = generator.generate({ roomCount: 5 });
+    
+    // Every room should be reachable from every other room
+    const reachable = generator.findReachableRooms(dungeon.rooms[0]);
+    expect(reachable.length).toBe(dungeon.rooms.length);
   });
 });
 ```
 
-#### Integration Tests
+#### **Performance Tests**
 ```javascript
-// Example integration test
-describe('Ecosystem Integration', () => {
-  test('predator increase should decrease prey population', async () => {
-    const ecosystem = new EcosystemManager();
-    ecosystem.addSpecies('beetle', 100);
-    ecosystem.addSpecies('spider', 5);
+describe('Generation Performance', () => {
+  test('medium dungeon generates in under 2 seconds', () => {
+    const start = performance.now();
+    const generator = new DungeonGenerator();
     
-    // Run simulation for 10 time steps
-    for (let i = 0; i < 10; i++) {
-      await ecosystem.update(1.0);
-    }
+    const dungeon = generator.generate({
+      roomCount: 25,
+      complexity: 'medium'
+    });
     
-    expect(ecosystem.getPopulation('beetle')).toBeLessThan(100);
+    const elapsed = performance.now() - start;
+    expect(elapsed).toBeLessThan(2000);
+    expect(dungeon.rooms.length).toBe(25);
   });
 });
 ```
 
-#### Performance Tests
+### Step 5: Submit Your Contribution
+```bash
+# 1. Ensure tests pass
+npm test
+npm run lint
+
+# 2. Commit with descriptive messages
+git add .
+git commit -m "feat(generation): implement recursive room partitioning
+
+- Add BSP tree algorithm for room layout
+- Support configurable room sizes and ratios  
+- Include pathfinding validation for connectivity
+- Add unit tests for deterministic generation
+
+Addresses #123"
+
+# 3. Push and create PR
+git push origin feature/phase3-room-generation
+# Create Pull Request on GitHub with detailed description
+```
+
+## 📝 Code Standards for Phase 3
+
+### **Generation Code Conventions**
 ```javascript
-// Example performance test
-describe('Performance', () => {
-  test('1000 creatures should maintain 60fps', () => {
-    const startTime = performance.now();
-    const ecosystem = new EcosystemManager();
+// ✅ Good: Clear, descriptive naming
+class DungeonGenerator {
+  generateRoomLayout(config) {
+    const partitions = this.createBSPPartitions(config.bounds);
+    const rooms = this.partitionsToRooms(partitions);
+    const connections = this.calculateConnections(rooms);
     
-    // Add 1000 creatures
-    for (let i = 0; i < 1000; i++) {
-      ecosystem.addCreature('beetle', randomPosition());
+    return { rooms, connections };
+  }
+  
+  createBSPPartitions(bounds, depth = 0) {
+    if (this.shouldStopPartitioning(bounds, depth)) {
+      return new LeafPartition(bounds);
     }
     
-    // Single update should complete in <16ms (60fps)
-    ecosystem.update(0.016);
-    const elapsed = performance.now() - startTime;
+    const splitAxis = this.chooseSplitAxis(bounds);
+    const splitPos = this.calculateSplitPosition(bounds, splitAxis);
     
-    expect(elapsed).toBeLessThan(16);
-  });
-});
+    return new BranchPartition(
+      this.createBSPPartitions(bounds.left, depth + 1),
+      this.createBSPPartitions(bounds.right, depth + 1)
+    );
+  }
+}
+
+// ❌ Bad: Unclear, abbreviated
+class DG {
+  gen(cfg) {
+    const p = this.bsp(cfg.b);
+    const r = this.p2r(p);
+    const c = this.calcC(r);
+    return { r, c };
+  }
+}
+```
+
+### **Asset Integration Standards**
+```javascript
+// ✅ Good: Proper asset loading with error handling
+class DungeonMaterialManager {
+  async loadDungeonMaterials() {
+    try {
+      const stoneWall = await assetLoader.load('textures/stone-wall.png', 'texture');
+      const stoneFloor = await assetLoader.load('textures/stone-floor.png', 'texture');
+      const water = await assetLoader.load('textures/water.png', 'texture');
+      
+      return {
+        wall: this.createMaterial(stoneWall, { roughness: 0.8 }),
+        floor: this.createMaterial(stoneFloor, { roughness: 0.9 }),
+        water: this.createMaterial(water, { transparency: 0.7, animated: true })
+      };
+    } catch (error) {
+      console.error('Failed to load dungeon materials:', error);
+      return this.createFallbackMaterials();
+    }
+  }
+}
+```
+
+## 🎯 Phase 3 Specific Guidelines
+
+### **Room Generation Requirements**
+- **Deterministic**: Same seed produces same dungeon
+- **Configurable**: Room count, size ranges, complexity levels
+- **Connected**: All rooms must be reachable via pathfinding
+- **Efficient**: Generation completes in <2 seconds for medium dungeons
+- **Validated**: Automatic checks for structural integrity
+
+### **Geometry Requirements**  
+- **Optimized**: Merged meshes for performance
+- **Textured**: Proper UV coordinates for materials
+- **Lit**: Normal vectors for lighting calculations
+- **Culled**: Back-face culling and occlusion ready
+- **LOD Ready**: Geometry suitable for level-of-detail systems
+
+### **Environmental Features**
+- **Water Systems**: Pools, streams with proper flow direction
+- **Temperature Zones**: Gradual transitions, not hard boundaries
+- **Organic Matter**: Realistic distribution based on moisture/temperature
+- **Lighting**: Areas of light penetration vs deep darkness
+- **Air Flow**: Circulation patterns affecting scent and gas distribution
+
+## 🧪 Testing Phase 3 Contributions
+
+### **Generation Testing**
+```bash
+# Run generation-specific tests
+npm run test:generation
+
+# Performance benchmarks
+npm run test:performance
+
+# Visual validation
+npm run dev
+# Navigate to generation test page
+# Generate multiple dungeons and verify visually
+```
+
+### **Integration Testing**
+```bash
+# Ensure generation integrates with existing systems
+npm run test:integration
+
+# Check WebGL rendering with generated content
+npm run dev
+# Generate dungeon and verify 60fps maintained
 ```
 
 ## 🎨 Asset Contribution Guidelines
 
-### 3D Models
-- **Format**: OBJ or GLTF 2.0
-- **Polycount**: <2000 triangles for creatures, <5000 for environments
-- **Textures**: 512x512 or 1024x1024 maximum
-- **UV Mapping**: Clean, efficient UV layouts
-- **Naming**: Descriptive names matching species/object types
+### **Phase 3 Asset Priorities**
 
-### Textures
-- **Format**: PNG for transparency, JPG for opaque surfaces
-- **Resolution**: Power-of-2 dimensions (256, 512, 1024)
-- **Optimization**: Use texture atlases when possible
-- **Naming**: `object-type-map.extension` (e.g., `beetle-diffuse.png`)
+#### **High Priority Textures**
+- `stone-wall-01.png` - Basic stone wall with subtle variation
+- `stone-floor-01.png` - Rough stone floor with realistic wear
+- `water-surface.png` - Animated water with normal mapping
+- `moss-growth.png` - Organic moss patterns for humidity areas
+- `organic-matter.png` - Decomposing material textures
 
-### Audio
-- **Format**: OGG Vorbis (primary), MP3 (fallback)
-- **Quality**: 44.1kHz, 16-bit, mono for effects, stereo for ambient
-- **Length**: <5 seconds for creature sounds, <30 seconds for ambient
-- **Processing**: Normalized to -6dB peak, no clipping
+#### **3D Models Needed**
+- `rock-formation-small.obj` - Natural cave rock formations
+- `stalactite-01.obj` - Hanging cave formations
+- `stalagmite-01.obj` - Ground-based formations
+- `mushroom-cluster.obj` - Organic growth in dark areas
+- `water-pool.obj` - Natural pool formations
 
-## 🔬 Scientific Accuracy Standards
+#### **Shader Requirements**
+- `dungeon-basic.vert/frag` - Standard dungeon material
+- `water-animated.vert/frag` - Flowing water with reflections
+- `moss-organic.vert/frag` - Organic matter with subsurface scattering
+- `rock-detailed.vert/frag` - High-detail rock with parallax mapping
 
-### Ecological Models
-All ecosystem simulations must be based on peer-reviewed research:
+### **Asset Creation Workflow**
+1. **Check asset manifest** in `src/core/AssetLoader.js`
+2. **Follow naming conventions**: `category-type-variation.extension`
+3. **Test in engine**: Use asset loader to verify integration
+4. **Optimize for performance**: Keep textures power-of-2, models under triangle limits
+5. **Submit with examples**: Include test scenes showing asset in use
 
-```javascript
-// ✅ Good: Based on real ecological principles
-function calculateCarryingCapacity(environment, species) {
-  // Based on Verhulst logistic growth model
-  const baseCapacity = environment.resources / species.resourceNeeds;
-  const temperatureFactor = species.temperatureTolerance(environment.temperature);
-  const competitionFactor = calculateInterspecificCompetition(species, environment);
-  
-  return baseCapacity * temperatureFactor * competitionFactor;
-}
+## 🤝 Community Guidelines
 
-// ❌ Bad: Arbitrary game logic
-function calculateCarryingCapacity(environment, species) {
-  return Math.random() * 100; // Not based on real ecology
-}
-```
+### **Communication Channels**
+- **GitHub Issues**: Technical problems, feature requests, bug reports
+- **GitHub Discussions**: General questions, ideas, showcasing contributions
+- **Pull Request Reviews**: Detailed code feedback and collaboration
+- **Documentation**: Keep docs updated with any API changes
 
-### Required Citations
-For any ecological model implementation, include citations:
-```javascript
-/**
- * Lotka-Volterra predator-prey dynamics with environmental carrying capacity
- * 
- * Based on:
- * - Lotka, A.J. (1925). Elements of Physical Biology
- * - Volterra, V. (1926). Fluctuations in the abundance of a species
- * - Begon, M. et al. (2006). Ecology: From Individuals to Ecosystems
- * 
- * @param {Object} predator - Predator population data
- * @param {Object} prey - Prey population data
- * @param {Object} environment - Environmental parameters
- * @returns {Object} Population change rates
- */
-```
+### **Phase 3 Coordination**
+Since Phase 3 involves multiple interconnected systems, coordination is crucial:
 
-## 📊 Performance Standards
+1. **Claim your area**: Comment on issues or create new ones for your planned work
+2. **Share progress**: Regular updates in GitHub Discussions
+3. **Test integration**: Ensure your code works with other Phase 3 contributions
+4. **Review others**: Help review PRs in areas you understand
+5. **Document decisions**: Update docs with any architectural decisions
 
-### Frame Rate Requirements
-- **Development**: 30fps minimum with debug tools enabled
-- **Production**: 60fps target with 1000+ creatures
-- **Stress Test**: Graceful degradation with 10,000+ creatures
+## 📊 Contribution Impact
 
-### Memory Usage
-- **Startup**: <100MB initial load
-- **Runtime**: <500MB with typical ecosystem
-- **Garbage Collection**: <5ms pause time for GC events
-
-### Code Performance
-```javascript
-// ✅ Good: O(log n) spatial queries using octree
-function findNearbyCreatures(position, radius) {
-  return this.spatialIndex.queryRange(position, radius);
-}
-
-// ❌ Bad: O(n) brute force search
-function findNearbyCreatures(position, radius) {
-  return this.allCreatures.filter(creature => 
-    creature.position.distance(position) < radius
-  );
-}
-```
-
-## 🚨 Review Process
-
-### Automated Checks
-Your PR will automatically run:
-- **Linting**: ESLint for code quality
-- **Tests**: Full test suite including performance tests
-- **Bundle Analysis**: Check for size increases
-- **Accessibility**: Basic accessibility compliance
-
-### Manual Review Criteria
-Reviewers will check for:
-
-#### Code Quality
-- [ ] Follows established patterns and conventions
-- [ ] Includes comprehensive documentation
-- [ ] Has appropriate test coverage
-- [ ] Handles edge cases and errors gracefully
-
-#### Scientific Accuracy
-- [ ] Ecological models based on real research
-- [ ] Includes proper citations where applicable
-- [ ] Parameters within realistic ranges
-- [ ] Behavior matches observed natural phenomena
-
-#### Performance Impact
-- [ ] No significant performance regressions
-- [ ] Memory usage remains reasonable
-- [ ] Algorithms scale appropriately
-- [ ] GPU/CPU usage optimized
-
-#### User Experience
-- [ ] Changes enhance rather than complicate the experience
-- [ ] Debug tools and visualizations are helpful
-- [ ] Error messages are clear and actionable
-- [ ] Documentation is user-friendly
-
-### Review Timeline
-- **Small changes** (bug fixes, documentation): 1-2 days
-- **Medium changes** (new features, optimizations): 3-5 days  
-- **Large changes** (architectural, major features): 1-2 weeks
-
-## 🏆 Recognition
-
-### Contribution Levels
-- **🌱 Contributor**: First merged PR
-- **🌿 Regular Contributor**: 5+ merged PRs
-- **🌳 Core Contributor**: 20+ merged PRs + architectural contributions
-- **🦋 Ecosystem Expert**: Major ecological model contributions
-- **🎨 Visual Artist**: Significant asset contributions
-- **📚 Documentation Master**: Major documentation contributions
-
-### Hall of Fame
-Outstanding contributors will be featured in:
-- Project README credits section
-- Conference presentations about the project
-- Academic papers describing the simulation
-- Special recognition in the application itself
-
-## ❓ Getting Help
-
-### Before Asking for Help
-1. **Search existing issues** - Someone may have already solved your problem
-2. **Check documentation** - Look in `/docs` folder and code comments
-3. **Read error messages carefully** - They often contain the solution
-4. **Try the debugging tools** - Use browser DevTools and our debug panels
-
-### How to Ask Good Questions
-```markdown
-## Problem Description
-Clear, one-sentence description of what's wrong.
-
-## Expected Behavior
-What should happen?
-
-## Actual Behavior  
-What actually happens?
-
-## Steps to Reproduce
-1. Step one
-2. Step two
-3. Step three
-
-## Environment
-- OS: macOS 12.1
-- Browser: Chrome 96.0.4664.110
-- Node.js: v16.13.1
-- Project commit: a7b3c2d
-
-## Additional Context
-Any other relevant information, screenshots, or code samples.
-```
-
-### Where to Get Help
-- **GitHub Issues**: Technical problems, bugs, feature requests
-- **GitHub Discussions**: General questions, ideas, showcasing work
-- **Discord Chat**: Real-time help, casual discussion
-- **Code Review**: Detailed feedback on your contributions
+### **Phase 3 Success Metrics**
+Your contributions to Phase 3 will be measured by:
+- **Generation Speed**: <2 seconds for medium complexity dungeons
+- **Rendering Performance**: Maintain 60fps with generated content
+- **Memory Efficiency**: <200MB for typical generated dungeon
+- **Visual Quality**: Realistic and engaging dungeon environments
+- **Code Quality**: Maintainable, tested, well-documented code
 
 ---
 
-## 🎉 Thank You!
+## 🎉 Recognition
 
-Every contribution, no matter how small, helps make this project better. Whether you're fixing a typo, implementing a complex ecological model, or creating beautiful 3D assets, your work matters.
+### **Phase 3 Contributors**
+Phase 3 contributors will be recognized in:
+- **Project README** with special "Phase 3 Architect" designation
+- **Technical documentation** crediting specific algorithm implementations
+- **Academic presentations** about the procedural generation system
+- **Community showcases** highlighting exceptional contributions
 
-Together, we're building something unprecedented - a scientifically accurate, visually stunning ecosystem simulation that can help people understand the complex relationships that govern life on Earth.
+### **Long-term Recognition**
+All contributors become part of the project's history:
+- **Contributor levels** based on merged PRs and impact
+- **Expert recognition** for domain-specific contributions
+- **Conference presentations** featuring contributor work
+- **Academic papers** acknowledging community contributions
 
-**Happy coding! 🦇🌿**
+## ❓ Getting Help for Phase 3
+
+### **Technical Assistance**
+- **Generation Algorithms**: Ask in GitHub Discussions with "procedural-generation" tag
+- **3D Geometry**: Review `GeometryBuilder.js` examples and ask specific questions
+- **Performance Issues**: Use the performance monitor and share metrics
+- **Integration Problems**: Check existing Phase 2 systems and ask for guidance
+
+### **Where to Ask**
+- **Algorithm Questions**: GitHub Discussions - "algorithms" category
+- **Code Review**: Pull Request comments with specific line feedback
+- **Performance Help**: GitHub Issues with "performance" label
+- **Asset Questions**: GitHub Discussions - "assets" category
+
+---
+
+**Phase 3 is starting NOW! Join us in building the foundation for living digital ecosystems! 🚀**
+
+*Together, we're creating something unprecedented - a scientifically accurate, procedurally generated world that will host complex life simulations.*

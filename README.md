@@ -2,10 +2,10 @@
 
 A scientifically-accurate, real-time 3D simulation of dungeon ecosystems with complete predator-prey dynamics, environmental modeling, and procedural generation.
 
-![Project Status](https://img.shields.io/badge/Status-In%20Development-yellow)
-![Phase](https://img.shields.io/badge/Phase-2%3A%20Complete-green)
-![Tests](https://img.shields.io/badge/Math%20Tests-Passing-green)
-![WebGL](https://img.shields.io/badge/WebGL-240fps-brightgreen)
+![Project Status](https://img.shields.io/badge/Status-Phase%202%20Complete-green)
+![Phase](https://img.shields.io/badge/Next-Phase%203%20Starting-blue)
+![Tests](https://img.shields.io/badge/Math%20Tests-12/12%20Passing-green)
+![WebGL](https://img.shields.io/badge/WebGL-Full%203D%20Pipeline-brightgreen)
 
 ## 🎯 Vision
 
@@ -35,59 +35,51 @@ npm run dev
 
 ### First Run
 1. Open `http://localhost:3000` in your browser
-2. You should see **5 spinning 3D cubes** with realistic lighting
+2. You should see **5 animated 3D cubes** with realistic lighting
 3. **Drag mouse** to rotate camera, **scroll wheel** to zoom
-4. **Press Ctrl+V** for isometric view, **Ctrl+D** for debug panel
+4. **Press Ctrl+D** for debug panel, **Space** to play/pause
 
-## 📋 Current Status
+## 📋 Current Status (Phase 2 Complete)
 
-### ✅ Completed (Phase 1 & 2)
-- **✅ Core Math Library** - Vector3, Matrix4, Quaternion, MathUtils with full test coverage
-- **✅ WebGL2 Rendering Pipeline** - Hardware-accelerated 3D graphics at 240fps
-- **✅ Camera System** - Interactive orbit controls with mouse and keyboard
-- **✅ Shader System** - Basic lighting with diffuse and specular components
-- **✅ 3D Scene Management** - Multiple objects with transformation matrices
-- **✅ Performance Optimization** - Efficient rendering with minimal draw calls
-- **✅ Environment Detection** - Automatic WebGL/Canvas2D fallback system
-- **✅ Debug Tools** - Real-time performance monitoring and camera controls
+### ✅ Completed Features
+- **✅ Complete Math Library** - Vector3, Matrix4, Quaternion, MathUtils with full test coverage
+- **✅ Full WebGL2 Rendering Pipeline** - Hardware-accelerated 3D graphics
+- **✅ Interactive Camera System** - Orbit controls with mouse and keyboard
+- **✅ Scene Graph Management** - Hierarchical node system with components
+- **✅ Shader System** - Vertex/fragment compilation with lighting
+- **✅ Performance Monitoring** - Real-time FPS and memory tracking
+- **✅ Input Management** - Centralized keyboard/mouse/touch handling
+- **✅ Asset Loading System** - Asynchronous loading with caching
+- **✅ Geometry Builder** - Tools for procedural mesh generation
+- **✅ Development Tooling** - Webpack, Jest, ESLint with hot reload
 
-### 🔧 In Development (Phase 3)
-- Procedural dungeon generation
-- 3D room interconnection system
-- Environmental zone placement
+### 🎮 Current Demo Features
 
-### 📅 Upcoming (Phases 4-7)
-- Multi-threaded ecosystem simulation
-- Creature AI and flocking behavior
-- Advanced 3D visualization
-- Interactive ecosystem manipulation
+#### **3D Rendering**
+- **5 animated cubes** with different colors and physics-based lighting
+- **Real-time Phong lighting** with ambient, diffuse, and specular components
+- **Interactive orbit camera** with smooth mouse controls
+- **60fps+ performance** on modern hardware
+- **Automatic WebGL/Canvas2D fallback** system
 
-See [ROADMAP.md](docs/ROADMAP.md) for detailed development timeline.
-
-## 🎮 Current Demo Features
-
-### **3D Rendering**
-- **5 animated cubes** with different colors and lighting
-- **Interactive camera** - mouse drag to orbit, wheel to zoom
-- **Real-time lighting** with ambient, diffuse, and specular components
-- **240fps performance** on modern hardware with WebGL2
-- **Automatic fallback** to Canvas 2D on unsupported systems
-
-### **Controls**
+#### **Controls**
 - **Mouse Drag**: Rotate camera around scene
-- **Mouse Wheel**: Zoom in/out (1-20 unit range)
-- **Ctrl+V**: Switch to isometric view
-- **Ctrl+C**: Show camera information
+- **Mouse Wheel**: Zoom in/out (1-20 unit range with limits)
 - **Ctrl+D**: Toggle performance debug panel
+- **Ctrl+V**: Switch to isometric camera view
+- **Ctrl+C**: Show camera position information
 - **Ctrl+R**: Reset scene and camera
-- **Space**: Play/pause animation
+- **Space**: Play/pause animations
+- **1-6**: Focus camera on specific cubes
+- **R**: Randomize cube colors
+- **Arrow Keys**: Manual camera control
 
-### **Debug Features**
-- **Real-time FPS counter** (target: 60fps, achieved: 240fps)
-- **Frame time monitoring** (sub-4ms frame times)
-- **Draw call tracking** (5 calls for 5 cubes)
+#### **Debug Features**
+- **Real-time FPS counter** with frame time monitoring
+- **Memory usage tracking** (JavaScript heap)
+- **Draw call counting** and performance metrics
 - **WebGL capability detection** and reporting
-- **Memory usage monitoring**
+- **Component system inspector** for scene nodes
 
 ## 🏗️ Architecture Overview
 
@@ -95,40 +87,67 @@ See [ROADMAP.md](docs/ROADMAP.md) for detailed development timeline.
 dungeon-ecosystem-3d/
 ├── src/
 │   ├── math/              # Core mathematics ✅ Complete
+│   │   ├── Vector3.js          # 3D vector operations
+│   │   ├── Matrix4.js          # 4x4 transformation matrices  
+│   │   ├── Quaternion.js       # Rotation without gimbal lock
+│   │   └── MathUtils.js        # Ecosystem-specific calculations
 │   ├── rendering/         # 3D graphics pipeline ✅ Complete
-│   │   ├── WebGLRenderer.js    # Core WebGL rendering
-│   │   └── Camera.js           # Interactive camera system
-│   ├── utils/             # Environment detection ✅ Complete
+│   │   ├── WebGLRenderer.js    # Core WebGL2/WebGL1 rendering
+│   │   ├── Camera.js           # Interactive orbit camera
+│   │   ├── Scene.js            # Hierarchical scene graph
+│   │   └── GeometryBuilder.js  # Procedural mesh generation
+│   ├── core/              # Engine systems ✅ Complete
+│   │   ├── Engine.js           # Main engine coordination
+│   │   ├── InputManager.js     # Centralized input handling
+│   │   ├── PerformanceMonitor.js # FPS and memory tracking
+│   │   ├── AssetLoader.js      # Asset loading and caching
+│   │   └── DemoScene.js        # Current demonstration content
+│   ├── utils/             # Utilities ✅ Complete
+│   │   └── environment.js      # Browser/Node.js detection
+│   ├── generation/        # Procedural content 🔧 Next Phase
 │   ├── simulation/        # Ecosystem simulation 📅 Planned
-│   ├── entities/          # Creatures and objects 📅 Planned
-│   └── generation/        # Procedural content 🔧 Next
-├── assets/                # Shaders, models, textures
-├── tools/                 # Development utilities
-├── tests/                 # Comprehensive test suite ✅
-└── docs/                  # Documentation
+│   └── entities/          # Creatures and objects 📅 Planned
+├── assets/                # Shaders, models, textures 🔧 Starting
+├── tests/                 # Comprehensive test suite ✅ 12/12 passing
+└── docs/                  # Documentation ✅ Complete
 ```
 
-### **Phase 2 Achievements**
+### **Phase 2 Technical Achievements**
 
 ✅ **WebGL2 Rendering Pipeline**
-- Hardware-accelerated 3D graphics
-- Vertex and fragment shader compilation
-- Buffer management for geometry data
-- Matrix transformations and lighting calculations
+- Full vertex/fragment shader compilation and linking
+- Buffer management for geometry data (vertices, normals, indices)
+- Matrix transformation pipeline (model-view-projection)
+- Phong lighting model with multiple light support
 
-✅ **Interactive Camera System**
-- Spherical coordinate orbit controls
-- Smooth mouse and touch interaction
-- Configurable zoom and rotation limits
-- Preset camera views (front, back, isometric, etc.)
+✅ **Scene Graph Architecture**
+- Hierarchical node system with parent-child relationships
+- Component-based entity architecture
+- Automatic matrix updates and world transforms
+- Spatial querying and traversal systems
 
 ✅ **Performance Optimization**
-- 240fps on modern hardware
-- Efficient draw call batching
 - Object pooling for transformations
-- Automatic quality scaling
+- Efficient draw call batching (5 calls for 5 objects)
+- Frame rate targeting and adaptive quality
+- Memory usage monitoring and optimization
 
-## 🧬 Ecosystem Model (Planned)
+## 🔧 Phase 3 Preparation (Starting Next)
+
+### **Planned: Procedural Dungeon Generation**
+- **3D Room Generation**: Algorithmic creation of interconnected chambers
+- **Mesh Creation**: Walls, floors, ceilings with proper geometry
+- **Doorway System**: Corridors and connections between rooms
+- **Environmental Zones**: Water sources, temperature variations, organic matter deposits
+- **Geometry Optimization**: Efficient rendering of large dungeon complexes
+
+### **Ready Systems for Integration**
+- **GeometryBuilder**: Box, plane, cylinder creation with doorway cutouts
+- **Scene Graph**: Ready for room hierarchies and spatial organization
+- **Asset Loader**: Configured for dungeon textures and data files
+- **Performance Monitor**: Ready to track generation and rendering performance
+
+## 🧬 Ecosystem Model (Future Phases)
 
 ### Species Hierarchy
 - **Primary Producers**: Cave moss, slimes (feed on organic matter)
@@ -156,65 +175,77 @@ predationRate = efficiency × predators × prey / (prey + 1)
 K = baseCapacity × environmentalSuitability
 ```
 
-## 🔬 Running Tests
+## 🔬 Testing & Quality
 
+### **Test Coverage**
+- **Math Library**: 12/12 tests passing with comprehensive coverage
+- **Integration Tests**: Vector-matrix transform chains
+- **Performance Tests**: 10,000 operations in <100ms
+- **Browser Tests**: Automatic math validation in development
+
+### **Quality Metrics**
+- **ESLint**: Zero violations with strict configuration
+- **Performance**: Consistent 60+ FPS with 5 3D objects
+- **Memory**: <50MB baseline usage
+- **Startup**: <2 seconds to full 3D rendering
+
+## 📊 Performance Metrics
+
+### **Current Performance (Phase 2)**
+- **Rendering**: 60+ fps with 5 3D objects and real-time lighting
+- **Frame Time**: <16ms per frame (targeting 60fps)
+- **Draw Calls**: 5 per frame (one per cube, well optimized)
+- **Memory Usage**: <50MB baseline with automatic monitoring
+- **Startup Time**: <2 seconds for complete WebGL initialization
+
+### **Target Performance (Phase 4)**
+- **Rendering**: Maintain 60fps with 1000+ creatures
+- **Simulation**: Handle 10,000+ organisms across 50+ rooms
+- **Generation**: <2 seconds for medium dungeon creation
+- **Memory**: Stay under 500MB for typical dungeon complexity
+
+## 🎮 Running the Demo
+
+### **Development Mode**
 ```bash
-# Run all tests
-npm test
+npm run dev
+# Opens http://localhost:3000 with hot reload
+# Math tests run automatically in browser console
+# Debug panel available with Ctrl+D
+```
 
-# Run specific test suites
-npm run test:math      # ✅ 12/12 passing
-npm run test:rendering # 🔧 In development
+### **Testing**
+```bash
+npm test              # Run all tests
+npm run test:math     # Math library only
+npm run test:coverage # With coverage report
+```
 
-# Run with coverage
-npm run test:coverage
-
-# Browser-based math tests
-# Automatically run in development mode
+### **Building**
+```bash
+npm run build         # Production build
+npm run lint          # Code quality check
+npm run clean         # Clean build artifacts
 ```
 
 ## 🛠️ Development Setup
 
-### Required Tools
-- **VS Code** (recommended) with extensions:
-  - ES6 String HTML for shader syntax highlighting
-  - WebGL GLSL Editor for shader development
-  - Live Server for local development
+### **Required Tools**
+- **Node.js 16+** with npm 7+
+- **Modern Browser** with WebGL2 support
+- **VS Code** (recommended) with ES6 and GLSL extensions
 
-### Performance Requirements
+### **Performance Requirements**
 - **WebGL2 Support**: Required for full 3D features
 - **Hardware Acceleration**: Recommended for 60+ fps
 - **4GB RAM**: Minimum for development
 - **Dedicated GPU**: Recommended for optimal performance
 
-## 📊 Performance Metrics
-
-### **Current Performance (Phase 2)**
-- **Rendering**: 240fps with 5 3D objects
-- **Frame Time**: <4ms per frame
-- **Draw Calls**: 5 per frame (one per cube)
-- **Memory Usage**: <50MB baseline
-- **Startup Time**: <2 seconds for complete initialization
-
-### **Target Performance (Phase 4)**
-- **Rendering**: Maintain 60fps with 1000+ creatures
-- **Simulation**: Handle 10,000+ organisms across 50+ rooms
-- **Memory**: Stay under 500MB for typical dungeon complexity
-
-## 🎮 Demo Features (Current)
-
-- **3D Scene Navigation**: Fly around 5 animated cubes with realistic lighting
-- **Interactive Controls**: Mouse-driven camera with zoom and rotation
-- **Real-time Performance**: 240fps on modern hardware
-- **Debug Information**: Live FPS, frame time, and rendering statistics
-- **Automatic Fallbacks**: Graceful degradation on older hardware
-
 ## 📞 Support & Community
 
-- **Primary Developer**: [Your contact info]
-- **Project Discussions**: [GitHub Discussions link]
-- **Bug Reports**: [GitHub Issues link]
-- **Development Blog**: [Blog/devlog link]
+- **GitHub Issues**: [Bug reports and feature requests]
+- **Development Blog**: [Progress updates and technical deep-dives]
+- **Documentation**: Complete API docs in `/docs` folder
 
 ## 📄 License
 
@@ -222,16 +253,15 @@ This project is licensed under the MIT License - see [LICENSE](LICENSE) for deta
 
 ## 🙏 Acknowledgments
 
-- **3D Graphics**: Built with modern WebGL2 pipeline
-- **Math Library**: Comprehensive 3D mathematics foundation
-- **Performance**: Optimized for hardware-accelerated rendering
-- **Community**: Thanks to contributors and testers
+- **WebGL Community**: For excellent documentation and examples
+- **Three.js**: Inspiration for scene graph architecture
+- **Scientific Community**: Ecological models and mathematical foundations
 
 ---
 
+**Phase 2 Complete**: ✅ **Full math library** ✅ **WebGL2 rendering** ✅ **Interactive 3D scene**  
+**Next**: 🔧 **Phase 3: Procedural Dungeon Generation**
+
 *"Creating digital life that behaves like real life - one algorithm at a time."*
 
-**Phase 2 Complete**: ✅ **Core math library** ✅ **WebGL rendering pipeline** ✅ **240fps 3D performance**  
-**Next**: 🔧 **Procedural dungeon generation**
-
-**Last Updated**: Phase 2 Complete - Full 3D rendering pipeline with interactive camera controls at 240fps
+**Last Updated**: Phase 2 Complete - Ready for Phase 3 procedural generation

@@ -99,15 +99,17 @@ export class Engine {
             try {
                 this.renderer = new WebGLRenderer(this.canvas);
                 await this.renderer.initialize();
-                
-                this.camera = new Camera(this.canvas);
+
+                // Pass the inputManager to the Camera constructor
+                this.camera = new Camera(this.canvas, this.inputManager);
                 this.renderer.setCamera(
                     this.camera.getViewMatrix(),
-                    this.camera.getProjectionMatrix()
+                    this.camera.getProjectionMatrix(),
+                    this.camera.getPosition()
                 );
-                
+
                 console.log(`✅ WebGL ${this.webglInfo.webglVersion} renderer initialized`);
-                
+
             } catch (error) {
                 console.error('WebGL initialization failed, falling back to Canvas2D:', error);
                 this.config.renderMode = 'canvas2d';
@@ -195,17 +197,17 @@ export class Engine {
     update(deltaTime) {
         // Update input
         this.inputManager.update();
-        
-        // Update camera if needed
-        if (this.camera) {
-            this.camera.update?.(deltaTime);
+
+        // Update camera for movement controls
+        if (this.camera?.update) {
+            this.camera.update(deltaTime);
         }
-        
+
         // Update scene
         if (this.scene) {
             this.scene.update(deltaTime);
         }
-        
+
         // Custom update callback
         if (this.onUpdate) {
             this.onUpdate(deltaTime);
@@ -216,23 +218,27 @@ export class Engine {
      * Render the frame
      */
     render(deltaTime) {
-        if (this.config.renderMode === 'webgl' && this.renderer) {
-            // Prepare scene for rendering
+        if (this.renderer) {
+            // Prepare scene for rendering (collects renderable nodes, etc.)
+            // This step might not be strictly necessary with the new render loop, but it's good practice
             this.scene.prepareRender();
-            
-            // Begin frame
+
+            // Begin frame (clears the screen)
             this.renderer.beginFrame();
-            
-            // Update camera matrices
-            this.renderer.setCamera(
-                this.camera.getViewMatrix(),
-                this.camera.getProjectionMatrix()
-            );
-            
-            // Render scene
-            this.renderScene();
-            
-            // Custom render callback
+
+            // Update camera matrices in the renderer
+            if (this.camera) {
+                this.renderer.setCamera(
+                    this.camera.getViewMatrix(),
+                    this.camera.getProjectionMatrix(),
+                    this.camera.getPosition() // Pass camera position for lighting
+                );
+            }
+
+            // Render the entire scene graph
+            this.renderScene(this.scene);
+
+            // Custom render callback (for UI or extra effects)
             if (this.onRender) {
                 this.onRender(this.renderer, deltaTime);
             }
@@ -241,19 +247,32 @@ export class Engine {
             this.renderCanvas2D(deltaTime);
         }
     }
-    
+
     /**
-     * Render scene objects
+     * Render scene objects by traversing the scene graph
      */
-    renderScene() {
-        // This will be expanded to render all scene objects
-        // For now, it's a placeholder for the demo
-        for (const node of this.scene.renderableNodes) {
-            const mesh = node.getComponent('mesh');
-            if (mesh && mesh.geometry && mesh.material) {
-                // Render the mesh
-                // This will be implemented based on your renderer API
+    renderScene(rootNode) {
+        // A recursive function to render a node and its children
+        const renderNode = (node) => {
+            if (!node.visible) {
+                return;
             }
+
+            // If the node is a mesh, render it
+            const meshComponent = node.getComponent('mesh');
+            if (meshComponent && meshComponent.geometry && meshComponent.material) {
+                this.renderer.renderMesh(node);
+            }
+
+            // Recurse through children
+            for (const child of node.children) {
+                renderNode(child);
+            }
+        };
+
+        // Start traversal from the root node's children
+        for (const child of rootNode.children) {
+            renderNode(child);
         }
     }
     
